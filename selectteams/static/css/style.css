@@ -1,0 +1,571 @@
+/* Reset */
+body, h1, p, button, select, input, textarea, label {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    background-color: #0a3145; 
+    font-family: Arial, sans-serif;
+    color: white;
+    font-size: 22px;
+    overflow-x: hidden;
+}
+
+/* Top Navbar */
+.top-navbar {
+    width: 100%;
+    background-color: #d9d9d9;
+    height: 80px; /* 👈 taller */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px; /* 👈 more padding */
+    position: relative;
+    box-sizing: border-box;
+}
+
+.top-navbar h1 {
+    color: #073B4C;
+    font-size: 36px; /* 👈 bigger heading */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    white-space: nowrap;
+}
+
+.arrow {
+    font-size: 40px; /* 👈 bigger arrows */
+    color: #073B4C;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.user-dropdown {
+    position: absolute;
+    top: 85px; /* moved further down */
+    right: 20px;
+    display: inline-block;
+    z-index: 9999; /* ensure it's on top */
+}
+
+.user-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #fff;
+    min-width: 180px;
+    max-width: 220px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    padding: 10px 0;
+    z-index: 10000; /* higher than anything else */
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+.dropdown-menu li {
+    list-style: none;
+}
+
+.dropdown-menu li a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f0f0f0;
+    color: #007BFF;
+}
+
+/* Reveal dropdown on hover */
+.user-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Logo + Signup */
+.logo-and-text {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 50px;
+    gap: 30px;
+    position: relative;
+}
+
+.logo {
+    height: 120px;
+}
+
+.right-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    top: 15px;
+}
+
+.health-check {
+    font-size: 32px;
+    font-weight: bold;
+    color: #d9d9d9;
+    margin-bottom: 8px;
+    margin-left: 8px;
+}
+
+/* Form Container */
+.container {
+    margin-top: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-body {
+    display: flex;
+    justify-content: center;
+    gap: 250px;
+    margin-top: 60px;
+}
+
+.left-side, .right-side {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    align-items: center;
+}
+
+input[type="text"], select {
+    padding: 24px;
+    width: 420px;
+    height: 70px;
+    border: none;
+    border-radius: 8px;
+    font-size: 22px;
+}
+
+/* Info Box */
+.info-box {
+    background-color: rgba(255, 255, 255, 0.07);
+    padding: 30px;
+    border-radius: 10px;
+    width: 500px;
+    font-size: 20px;
+    line-height: 1.6;
+    text-align: center;
+    animation: popInBounce 1.2s ease-out both;
+}
+
+.info-box h2 {
+    font-size: 28px;
+    margin-bottom: 16px;
+}
+
+.highlight {
+    color: #1E90FF;
+}
+
+.info-box p {
+    margin-bottom: 20px;
+}
+
+/* Button */
+.button-container {
+    margin-top: 60px;
+    display: flex;
+    justify-content: flex-end;
+    width: 90%;
+}
+
+.submit-btn {
+    background-color: #d9d9d9;
+    color: black;
+    padding: 18px 36px;
+    border: none;
+    border-radius: 8px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #bbbbbb;
+}
+
+/* Popup Styling */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: white;
+    color: black;
+    padding: 40px 50px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+}
+
+.popup-content p {
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.popup-content button {
+    padding: 14px 28px;
+    font-size: 20px;
+    background-color: #0a3145;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Animation */
+@keyframes popInBounce {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(60px);
+    }
+    60% {
+        opacity: 1;
+        transform: scale(1.05) translateY(-10px);
+    }
+    100% {
+        transform: scale(1) translateY(0);
+    }
+}
+
+
+
+/* CHOOSE TEAM AND CARDS PAGE */
+/* Container for team and card selection */
+.choose-team-cards-container {
+    padding: 80px;
+    margin-top: 150px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 180px;
+}
+
+/* Each side */
+.choose-team-cards-section {
+    flex: 1;
+    min-width: 450px;
+    max-width: 550px;
+}
+
+/* Headings */
+.choose-team-cards-section h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: #d9d9d9;
+    text-align: center;
+}
+
+/* Checkbox groups */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Individual label styling */
+.checkbox-group label {
+    font-size: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Select All Button section */
+.select-all-button {
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.select-all-button button {
+    background: white;
+    color: #0a3145;
+    border: 4px solid #0a3145;
+    padding: 20px 40px;
+    font-size: 26px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.select-all-button button:hover {
+    background: #0a3145;
+    color: white;
+}
+
+/* Sky Logo Styling */
+.sky-logo {
+    position: absolute;
+    top: 80px;
+    right: 40px;
+    width: 160px;
+    height: auto;
+    z-index: 5;
+}
+
+/* Card checkboxes layout */
+.cards-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px 60px;
+}
+
+.cards-checkboxes label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 28px;
+}
+
+#popupContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none; /* hidden initially */
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: none;
+    background: rgba(0, 0, 0, 0);
+    z-index: 9999;
+    transition: backdrop-filter 0.3s ease, background 0.3s ease;
+}
+
+#popupContainer.active {
+    display: flex;
+    backdrop-filter: blur(6px);
+    background: rgba(0, 0, 0, 0.25);
+}
+
+
+/* Popup Box */
+.popup-message {
+    max-width: 400px;
+    width: 90%;
+    padding: 20px 30px;
+    border-radius: 20px;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    animation: simpleFade 0.4s ease, disappear 3.2s forwards;
+    color: white;
+}
+
+/* Color Variants */
+.popup-success {
+    background: linear-gradient(135deg, #00C9A7, #92FE9D);
+}
+
+.popup-error {
+    background: linear-gradient(135deg, #ff6a6a, #ff99ac);
+}
+
+/* Animations */
+@keyframes simpleFade {
+    from {
+        opacity: 0;
+        transform: scale(0.92);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes disappear {
+    0%, 80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
+/* ====== VIEW TEAMS AND CARDS PAGE STYLES ====== */
+
+/* === TEAM CARD CONTROLS WRAPPER === */
+.team-card-controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 120px;
+    margin: 80px 60px 40px;
+    animation: floatIn 1s ease-out both;
+}
+
+/* === FILTER PANEL - GLASS LOOK === */
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 30px;
+    border-radius: 18px;
+    min-width: 280px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    animation: floatGlow 3s ease-in-out infinite;
+}
+
+.filter-group h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #ffffff;
+    text-align: center;
+    letter-spacing: 1px;
+    text-shadow: 0 0 4px #000000;
+}
+
+.filter-group label {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    gap: 12px;
+    cursor: pointer;
+    color: #e0e0e0;
+}
+
+/* === CARD WRAPPER === */
+.card-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+/* === CARD CONTAINER === */
+.card-display {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    padding: 40px 80px;
+}
+
+/* === CARD STYLING === */
+.card-box {
+    background: rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 28px;
+    width: 280px;
+    min-height: 200px;
+    color: #fff;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    animation: fadeInUp 1s ease forwards;
+    overflow: hidden;
+}
+
+/* Gradient border glow */
+.card-box::before {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, #00f2fe, #4facfe, #00f2fe);
+    z-index: -1;
+    border-radius: 22px;
+    filter: blur(8px);
+    opacity: 0.4;
+    animation: borderGlow 5s ease infinite;
+}
+
+/* Hover effect */
+.card-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.card-box:hover::before {
+    opacity: 0.8;
+}
+
+/* Text Styling */
+.card-box h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+    color: #ffffff;
+    text-shadow: 0 0 5px #4facfe;
+}
+
+.card-box p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatGlow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+@keyframes borderGlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes floatIn {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

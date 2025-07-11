@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Choose Team and Cards</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="top-navbar">
+    <div class="arrow">&#x25C0;</div>
+    <h1>CHOOSE TEAM AND CARDS</h1>
+    <div class="arrow">&#x25B6;</div>
+</div>
+
+<!-- Sky logo -->
+<img src="{% static 'images/sky_logo.png' %}" alt="Sky Logo" class="sky-logo">
+
+<!-- FORM -->
+<form method="POST" action="{% url 'choose_team_cards' %}" onsubmit="return validateSelection()">
+    {% csrf_token %}
+    <div class="choose-team-cards-container">
+
+        <!-- Team selection -->
+        <div class="choose-team-cards-section">
+            <h2>Please select the team(s) you want to view <span style="color:red;">*</span></h2>
+            <div class="checkbox-group" id="team-checkboxes">
+                <label><input type="checkbox" name="team" value="team1"> Team 1</label>
+                <label><input type="checkbox" name="team" value="team2"> Team 2</label>
+                <label><input type="checkbox" name="team" value="team3"> Team 3</label>
+                <label><input type="checkbox" name="team" value="team4"> Team 4</label>
+                <label><input type="checkbox" name="team" value="team5"> Team 5</label>
+            </div>
+        </div>
+
+        <!-- Card selection -->
+        <div class="choose-team-cards-section">
+            <h2>Please select the card(s) you want to view <span style="color:red;">*</span></h2>
+            <div class="checkbox-group cards-checkboxes" id="card-checkboxes">
+                <label><input type="checkbox" name="card" value="Teamwork"> Teamwork</label>
+                <label><input type="checkbox" name="card" value="Support"> Support</label>
+                <label><input type="checkbox" name="card" value="Pawns"> Pawns</label>
+                <label><input type="checkbox" name="card" value="Mission"> Mission</label>
+                <label><input type="checkbox" name="card" value="Health of Codebase"> Health of Codebase</label>
+                <label><input type="checkbox" name="card" value="Suitable Process"> Suitable Process</label>
+                <label><input type="checkbox" name="card" value="Delivering Value"> Delivering Value</label>
+                <label><input type="checkbox" name="card" value="Learning"> Learning</label>
+                <label><input type="checkbox" name="card" value="Speed"> Speed</label>
+                <label><input type="checkbox" name="card" value="Fun/Easy"> Fun/Easy</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="select-all-button">
+        <button type="button" onclick="handleSelectAll()">Select All Cards</button>
+        <button type="submit" class="submit-button">Submit</button>
+    </div>
+</form>
+
+<!-- Popup container -->
+<div id="popupContainer">
+    <div class="popup-message popup-error">
+        Please select at least one team and one card.
+    </div>
+</div>
+
+
+<!-- JavaScript -->
+<script>
+    function handleSelectAll() {
+        const cardCheckboxes = document.querySelectorAll('#card-checkboxes input[type="checkbox"]');
+        const allSelected = Array.from(cardCheckboxes).every(cb => cb.checked);
+        cardCheckboxes.forEach(cb => cb.checked = !allSelected);
+    }
+    
+    function validateSelection() {
+        const teamChecked = document.querySelectorAll('#team-checkboxes input[type="checkbox"]:checked').length > 0;
+        const cardChecked = document.querySelectorAll('#card-checkboxes input[type="checkbox"]:checked').length > 0;
+    
+        if (!teamChecked || !cardChecked) {
+            const popup = document.getElementById("popupContainer");
+            popup.classList.add("active");
+            popup.style.display = "flex"; // show popup
+    
+            // Hide popup after animation
+            setTimeout(() => {
+                popup.classList.remove("active");
+                popup.style.display = "none"; // hide popup
+            }, 3200); // Matches animation duration
+    
+            return false;
+        }
+    
+        return true;
+    }
+    </script>
+    
+
+</body>
+</html>
+

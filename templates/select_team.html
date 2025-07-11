@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Team</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="top-navbar">
+    <div class="arrow">&#x25C0;</div>
+    <h1>SELECT TEAM</h1>
+    <div class="arrow">&#x25B6;</div>
+</div>
+
+<!-- User Dropdown -->
+<div class="user-dropdown" id="userDropdown">
+    <img src="{% static 'images/user-profile.jpg' %}" alt="User Icon" class="user-icon" id="userIcon">
+    <ul class="dropdown-menu" id="dropdownMenu">
+        <li><a href="/profile/">UPDATE PROFILE</a></li>
+        <li><a href="/logout/">LOGOUT</a></li>
+        <li><a href="/abcd/">CHANGE PASSWORD</a></li>
+    </ul>
+</div>
+
+<!-- Logo and Signup Section -->
+<div class="logo-and-text">
+    <img src="{% static 'images/sky_logo.png' %}" alt="Sky Logo" class="logo">
+    <div class="right-text">
+        <div class="health-check">Health Check</div>
+        <div class="signup">Sign Up</div>
+    </div>
+</div>
+
+<!-- Form -->
+<div class="container">
+    <form method="POST" id="signupForm">
+        {% csrf_token %}
+        <div class="form-body">
+            <div class="left-side">
+                <label for="session">SESSION:</label> 
+                <select id="session" name="session" required>
+                    <option value="">Select a session</option>
+                    <option>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                </select>
+
+                <label for="team">Select your team:</label>
+                <select id="team" name="team" required>
+                    <option value="">Select your team</option>
+                    <option>Team 1</option>
+                    <option>Team 2</option>
+                    <option>Team 3</option>
+                    <option>Team 4</option>
+                    <option>Team 5</option>
+                </select>
+            </div>
+
+            <div class="right-side">
+                <div class="info-box fade-in">
+                    <h2>Welcome to <span class="highlight">Sky</span></h2>
+                    <p>Here at Sky, we understand and are committed to ensuring the health and performance of engineering teams.</p>
+                    <p>Through this app you will be able to easily monitor, analyse and enhance the health of your engineering team.</p>
+                    <p>The next page will be the <strong>Choose Team Cards</strong> page where users will be able to select their team and cards.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button type="submit" class="submit-btn">SUBMIT</button>
+        </div>
+
+        <div class="button-container">
+            <a href="{% url 'choose_team_cards' %}" class="submit-btn" style="text-align:center; display:inline-block; text-decoration:none;">Go to Choose Team & Cards</a>
+        </div>
+    </form>
+</div>
+
+<!-- Popup Box -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <p id="popup-message"></p>
+        <button onclick="closePopup()">OK</button>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // Dropdown Toggle
+    const userIcon = document.getElementById("userIcon");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+
+    userIcon.addEventListener("click", function (e) {
+        dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+        e.stopPropagation();
+    });
+
+    document.addEventListener("click", function () {
+        dropdownMenu.style.display = "none";
+    });
+
+    dropdownMenu.addEventListener("click", function (e) {
+        e.stopPropagation();
+    });
+
+    // Form Submission + Popup
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById('signupForm');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const session = document.getElementById('session').value;
+            const teamSelect = document.getElementById('team').value;
+
+            if (!session || session === "Select a session") {
+                showPopup('⚠️ Please select a valid session.');
+                return;
+            }
+
+            if (teamSelect === "Select your team" || teamSelect === "") {
+                showPopup('⚠️ Please select a valid team.');
+                return;
+            }
+
+            showPopup(`✅ SUBMITTED SUCCESSFULLY!<br><br><strong>Session:</strong> ${session}<br><strong>Team:</strong> ${teamSelect}`);
+            form.reset();
+        });
+    });
+
+    function showPopup(message) {
+        const popup = document.getElementById('popup');
+        const popupMessage = document.getElementById('popup-message');
+        popupMessage.innerHTML = message;
+        popup.style.display = 'flex';
+    }
+
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
